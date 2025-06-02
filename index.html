@@ -17,67 +17,91 @@
     }
 
     /* Modal Polaroid Style */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      perspective: 1000px;
-      z-index: 1000;
-    }
-    .polaroid {
-      width: 300px;
-      height: 360px;
-      background: white;
-      padding: 10px;
-      border: 1px solid #ddd;
-      box-shadow: 2px 2px 20px rgba(0,0,0,0.3);
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-      position: relative;
-    }
+ .modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  perspective: 1000px;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.4); /* subtle overlay */
+  padding: 20px;
+  border-radius: 10px;
+}
+   .polaroid {
+  width: 300px;
+  height: 360px;
+  background: #fff;
+  padding: 10px;
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border-radius: 6px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.6s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
 
-    .polaroid-inner {
-      width: 100%;
-      height: 100%;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      position: relative;
-    }
+.polaroid-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  position: relative;
+}
 
-    .polaroid.flipped .polaroid-inner {
-      transform: rotateY(180deg);
-    }
+.polaroid.flipped .polaroid-inner {
+  transform: rotateY(180deg);
+}
 
-    .front, .back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-    }
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  top: 0;
+  left: 0;
+  border-radius: 6px;
+}
 
-    .front img {
-      width: 100%;
-      height: 85%;
-      object-fit: cover;
-    }
+.front img {
+  width: 100%;
+  height: 85%;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
 
-    .flip-icon {
-      cursor: pointer;
-      text-align: center;
-      padding: 5px;
-      font-size: 18px;
-      background: #f0f0f0;
-    }
+.back {
+  background: #fafafa;
+  transform: rotateY(180deg);
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 
-    .back {
-      background: #fff;
-      transform: rotateY(180deg);
-      padding: 20px;
-      box-sizing: border-box;
-    }
+.flip-icon {
+  cursor: pointer;
+  text-align: center;
+  padding: 5px;
+  font-size: 18px;
+  background: #f9f9f9;
+  border-top: 1px solid #ccc;
+}
+    
+/* Hover effects for pins */
+.leaflet-marker-icon {
+  transition: transform 0.2s ease;
+}
 
+.leaflet-marker-icon:hover {
+  transform: scale(1.2);
+  z-index: 999;
+}
     .close-btn {
       position: absolute;
       top: -10px;
@@ -139,13 +163,19 @@
       openModal(city.img, city.text);
     });
 
+
+    
 const label = L.divIcon({
   className: '',
-  html: `<div style="font-weight:bold; font-size:12px; color:black; text-shadow: 0 0 3px white;">
-    ${city.name}, ${city.country}
-  </div>`,
+  html: `<div style="
+    font-weight: bold;
+    font-size: 12px;
+    color: black;
+    text-shadow: 0 0 3px white;
+    white-space: nowrap;
+  ">${city.name}, ${city.country}</div>`,
   iconSize: [100, 20],
-  iconAnchor: [50, 60] // position above the marker
+  iconAnchor: [50, 60]
 });
 
 
