@@ -126,25 +126,28 @@
 
   // Pins and labels
   const cities = [
-    { name: "Harbin", coords: [45.8038, 126.5349], img: "IMAGE_URL_HERE", text: "TEXT_HERE" },
-    { name: "Brisbane", coords: [-27.4698, 153.0251], img: "IMAGE_URL_HERE", text: "TEXT_HERE" },
-    { name: "Dubai", coords: [25.2048, 55.2708], img: "IMAGE_URL_HERE", text: "TEXT_HERE" },
-    { name: "São Paulo", coords: [-23.5505, -46.6333], img: "IMAGE_URL_HERE", text: "TEXT_HERE" },
-    { name: "Punta Cana", coords: [18.5820, -68.4055], img: "IMAGE_URL_HERE", text: "TEXT_HERE" },
-    { name: "Cancún", coords: [21.1619, -86.8515], img: "IMAGE_URL_HERE", text: "TEXT_HERE" }
-  ];
+  { name: "Harbin", country: "China", coords: [45.8038, 126.5349], img: "harbin.jpg", text: "Snowy city in northeast China." },
+  { name: "Brisbane", country: "Australia", coords: [-27.4698, 153.0251], img: "brisbane.jpg", text: "Vibrant river city." },
+  { name: "Dubai", country: "UAE", coords: [25.2048, 55.2708], img: "dubai.jpg", text: "Futuristic desert metropolis." },
+  { name: "São Paulo", country: "Brazil", coords: [-23.5505, -46.6333], img: "saopaulo.jpg", text: "Largest city in South America." },
+  { name: "Punta Cana", country: "D.R.", coords: [18.5820, -68.4055], img: "puntacana.jpg", text: "Resort paradise in the Caribbean." },
+  { name: "Cancún", country: "Mexico", coords: [21.1619, -86.8515], img: "cancun.jpg", text: "Turquoise beaches and nightlife." }
+];
 
   cities.forEach(city => {
     const marker = L.marker(city.coords).addTo(map).on('click', () => {
       openModal(city.img, city.text);
     });
 
-    const label = L.divIcon({
-      className: 'city-label',
-      html: `<div style="font-weight: bold; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #ccc;">${city.name}</div>`,
-      iconSize: [100, 20],
-      iconAnchor: [25, -10]
-    });
+const label = L.divIcon({
+  className: '',
+  html: `<div style="font-weight:bold; font-size:12px; color:black; text-shadow: 0 0 3px white;">
+    ${city.name}, ${city.country}
+  </div>`,
+  iconSize: [100, 20],
+  iconAnchor: [50, 30] // position above the marker
+});
+
 
     L.marker(city.coords, { icon: label }).addTo(map);
   });
