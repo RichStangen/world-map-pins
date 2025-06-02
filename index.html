@@ -11,97 +11,90 @@
       height: 100%;
       font-family: sans-serif;
     }
+
     #map {
       height: 100%;
       width: 100%;
     }
 
     /* Modal Polaroid Style */
- .modal {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  perspective: 1000px;
-  z-index: 1000;
-  background: rgba(0, 0, 0, 0.4); /* subtle overlay */
-  padding: 20px;
-  border-radius: 10px;
-}
-   .polaroid {
-  width: 300px;
-  height: 360px;
-  background: #fff;
-  padding: 10px;
-  border: 2px solid #e0e0e0;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  border-radius: 6px;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  transition: transform 0.6s ease-in-out;
-  position: relative;
-  overflow: hidden;
-}
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      perspective: 1000px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
 
-.polaroid-inner {
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
-  position: relative;
-}
+    .polaroid {
+      width: 300px;
+      height: 360px;
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+      border-radius: 6px;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: transform 0.6s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
 
-.polaroid.flipped .polaroid-inner {
-  transform: rotateY(180deg);
-}
+    .polaroid-inner {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+      position: relative;
+    }
 
-.front, .back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  top: 0;
-  left: 0;
-  border-radius: 6px;
-}
+    .polaroid.flipped .polaroid-inner {
+      transform: rotateY(180deg);
+    }
 
-.front img {
-  width: 100%;
-  height: 85%;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
-}
+    .front, .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      top: 0;
+      left: 0;
+      border-radius: 6px;
+    }
 
-.back {
-  background: #fafafa;
-  transform: rotateY(180deg);
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
+    .front img {
+      width: 100%;
+      height: 85%;
+      object-fit: cover;
+      border-bottom: 1px solid #ddd;
+    }
 
-.flip-icon {
-  cursor: pointer;
-  text-align: center;
-  padding: 5px;
-  font-size: 18px;
-  background: #f9f9f9;
-  border-top: 1px solid #ccc;
-}
-    
-/* Hover effects for pins */
-.leaflet-marker-icon {
-  transition: transform 0.2s ease;
-}
+    .back {
+      background: #fafafa;
+      transform: rotateY(180deg);
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
 
-.leaflet-marker-icon:hover {
-  transform: scale(1.2);
-  z-index: 999;
-}
+    .flip-icon {
+      cursor: pointer;
+      text-align: center;
+      padding: 5px;
+      font-size: 18px;
+      background: #f9f9f9;
+      border-top: 1px solid #ccc;
+    }
+
     .close-btn {
       position: absolute;
       top: -10px;
@@ -115,6 +108,18 @@
       cursor: pointer;
       font-weight: bold;
       line-height: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Hover effects for pins */
+    .leaflet-marker-icon {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .leaflet-marker-icon:hover {
+      transform: scale(1.2);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 999;
     }
   </style>
 </head>
@@ -150,34 +155,32 @@
 
   // Pins and labels
   const cities = [
-  { name: "Harbin", country: "China", coords: [45.8038, 126.5349], img: "harbin.jpg", text: "Snowy city in northeast China." },
-  { name: "Brisbane", country: "Australia", coords: [-27.4698, 153.0251], img: "brisbane.jpg", text: "Vibrant river city." },
-  { name: "Dubai", country: "UAE", coords: [25.2048, 55.2708], img: "dubai.jpg", text: "Futuristic desert metropolis." },
-  { name: "São Paulo", country: "Brazil", coords: [-23.5505, -46.6333], img: "saopaulo.jpg", text: "Largest city in South America." },
-  { name: "Punta Cana", country: "D.R.", coords: [18.5820, -68.4055], img: "puntacana.jpg", text: "Resort paradise in the Caribbean." },
-  { name: "Cancún", country: "Mexico", coords: [21.1619, -86.8515], img: "cancun.jpg", text: "Turquoise beaches and nightlife." }
-];
+    { name: "Harbin", country: "China", coords: [45.8038, 126.5349], img: "harbin.jpg", text: "Snowy city in northeast China." },
+    { name: "Brisbane", country: "Australia", coords: [-27.4698, 153.0251], img: "brisbane.jpg", text: "Vibrant river city." },
+    { name: "Dubai", country: "UAE", coords: [25.2048, 55.2708], img: "dubai.jpg", text: "Futuristic desert metropolis." },
+    { name: "São Paulo", country: "Brazil", coords: [-23.5505, -46.6333], img: "saopaulo.jpg", text: "Largest city in South America." },
+    { name: "Punta Cana", country: "D.R.", coords: [18.5820, -68.4055], img: "puntacana.jpg", text: "Resort paradise in the Caribbean." },
+    { name: "Cancún", country: "Mexico", coords: [21.1619, -86.8515], img: "cancun.jpg", text: "Turquoise beaches and nightlife." }
+  ];
 
   cities.forEach(city => {
     const marker = L.marker(city.coords).addTo(map).on('click', () => {
       openModal(city.img, city.text);
     });
 
-
-    
-const label = L.divIcon({
-  className: '',
-  html: `<div style="
-    font-weight: bold;
-    font-size: 12px;
-    color: black;
-    text-shadow: 0 0 3px white;
-    white-space: nowrap;
-  ">${city.name}, ${city.country}</div>`,
-  iconSize: [100, 20],
-  iconAnchor: [50, 60]
-});
-
+    const label = L.divIcon({
+      className: '',
+      html: `<div style="
+        font-weight: bold;
+        font-size: 12px;
+        color: black;
+        text-shadow: 0 0 3px white;
+        white-space: nowrap;
+        transform: translateY(-30px);
+      ">${city.name}, ${city.country}</div>`,
+      iconSize: [100, 20],
+      iconAnchor: [50, 50] // Adjust label position above pin
+    });
 
     L.marker(city.coords, { icon: label }).addTo(map);
   });
